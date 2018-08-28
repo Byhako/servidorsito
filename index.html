@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Servidor</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 70px;
+      background-color: #204A87;
+      color: #110930;
+      font-size: 26px;
+      font-weight: bold;
+      margin-bottom: 50px;
+    }
+    .container {
+      margin: auto;
+      width: 80%;
+      display: grid;
+      grid-template-columns: 30% 1fr;
+    }
+    .botones {
+      display: grid;
+      justify-content: center;
+    }
+    .respuestas {
+      display: grid;
+    }
+    .respuesta {
+      align-items: center;
+      justify-content: center;
+      display: grid;
+    }
+    .btn {
+      width: 200px;
+      height: 60px;
+      border: none;
+      background-color: #4E9A06;
+      border-bottom: 3px solid #15620E;
+      border-right: 3px solid #15620E;
+      cursor: pointer;
+      margin: 10px;
+      color: whitesmoke;
+      font-size: 20px;
+    }
+    .btn:active {
+      transform: scale(0.95);
+    }
+  </style>
+</head>
+<body>
+
+  <div id="app">
+    <nav>Mi servidor</nav>
+
+    <div class="container">
+      <div class="botones">
+        <button class='btn' id="btn1">Petición 1</button>
+        <button class='btn' id="btn2">Petición 2</button>
+      </div>
+
+      <div class="respuestas">
+        <div class="respuesta"></div>
+      </div>
+    </div>      
+  </div>
+
+
+  <script type="text/javascript">
+    const btn1 = document.querySelector('#btn1')
+    const btn2 = document.querySelector('#btn2')
+    const $respuesta = document.querySelector('.respuesta')
+    btn1.addEventListener('click', peticion1)
+    btn2.addEventListener('click', peticion2)
+        
+    function peticion1 () {      
+      fetch('http://127.0.0.1:3000')
+        .then(function(response) {
+          if (response.ok) {
+            console.log('ok')
+            return response
+          } else {
+            console.log('error',response)
+          }
+        })        
+        .then(function(response) {
+          return response.json()
+        })
+        .then(function(data) {
+          console.log('response:',data)
+          $respuesta.innerHTML =  JSON.stringify(data)
+        })
+        .catch(err => console.error(err))
+    }       
+
+    function peticion2 () {console.log(2)}
+        
+  </script>
+</body>
+</html>
