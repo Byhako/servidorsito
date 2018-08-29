@@ -94,8 +94,8 @@
           return response.json()
         })
         .then(function(data) {
-          console.log('response:',data)
-          $respuesta.innerHTML =  JSON.stringify(data)
+          console.log('response:',data.html)
+          $respuesta.innerHTML =  data.html
         })
         .catch(err => console.error(err))
     }       
